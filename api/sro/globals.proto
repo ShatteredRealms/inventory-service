@@ -30,6 +30,8 @@ message MapTarget {
   }
 }
 
+message ChatChannelTarget { uint64 id = 1; }
+
 message Location {
   string world = 1;
   float x = 2;

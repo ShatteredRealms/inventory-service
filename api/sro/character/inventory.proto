@@ -5,7 +5,6 @@ option go_package = "pkg/pb";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "sro/globals.proto";
-import "sro/gamebackend/servermanager.proto";
 
 service InventoryService {
   rpc GetInventory(CharacterTarget) returns (Inventory) {

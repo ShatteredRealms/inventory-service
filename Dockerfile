@@ -8,12 +8,12 @@ RUN go mod download
 COPY . .
 ARG APP_VERSION=v0.0.1
 RUN go build \
-	-ldflags="-X 'github.com/ShatteredRealms/character-service/pkg/config/default.Version=${APP_VERSION}'" \
-	-o /out/character ./cmd/character
+	-ldflags="-X 'github.com/ShatteredRealms/inventory-service/pkg/config/default.Version=${APP_VERSION}'" \
+	-o /out/inventory ./cmd/inventory
 
 # Run server
 FROM alpine:3.15.0
 WORKDIR /app
-COPY --from=build /out/character ./
-EXPOSE 8081
-ENTRYPOINT [ "./character" ]
+COPY --from=build /out/inventory ./
+EXPOSE 8084
+ENTRYPOINT [ "./inventory" ]
