@@ -1,0 +1,50 @@
+syntax = "proto3";
+package sro.character;
+option go_package = "pkg/pb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "sro/globals.proto";
+import "sro/gamebackend/servermanager.proto";
+
+service InventoryService {
+  rpc GetInventory(CharacterTarget) returns (Inventory) {
+    option (google.api.http) = {
+      get : "/v1/characters/id/{id}/inventory"
+      additional_bindings : {get : "/v1/characters/name/{name}/inventory"}
+    };
+  }
+
+  rpc SetInventory(UpdateInventoryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/characters/id/{target.id}/inventory"
+      body : "*"
+      additional_bindings : {
+        post : "/v1/characters/name/{target.name}/inventory"
+        body : "*"
+      }
+    };
+  }
+}
+
+message InventoryItem {
+  // Item id
+  string id = 1;
+
+  // Slot number to place item
+  uint32 slot = 2;
+
+  // Number of the items in the slot
+  uint64 quantity = 3;
+}
+
+message Inventory {
+  repeated InventoryItem inventory_items = 1;
+  repeated InventoryItem bank_items = 2;
+}
+
+message UpdateInventoryRequest {
+  CharacterTarget target = 1;
+  repeated InventoryItem inventory_items = 2;
+  repeated InventoryItem bank_items = 3;
+}
