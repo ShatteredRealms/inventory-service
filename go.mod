@@ -3,7 +3,7 @@ module github.com/ShatteredRealms/inventory-service
 go 1.23.3
 
 require (
-	github.com/ShatteredRealms/go-common-service v0.2.1
+	github.com/ShatteredRealms/go-common-service v0.2.7
 	github.com/WilSimpson/gocloak/v13 v13.11.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.24.0
 	github.com/mitranim/gow v0.0.0-20231026105220-af11a6e1e9eb
@@ -11,6 +11,7 @@ require (
 	github.com/spf13/cobra-cli v1.3.0
 	go.opentelemetry.io/otel v1.32.0
 	go.uber.org/mock v0.5.0
+	google.golang.org/genproto/googleapis/api v0.0.0-20241118233622-e639e219e697
 	google.golang.org/grpc v1.68.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
 	google.golang.org/protobuf v1.35.2
@@ -93,7 +94,6 @@ require (
 	golang.org/x/text v0.20.0 // indirect
 	golang.org/x/time v0.8.0 // indirect
 	golang.org/x/tools v0.27.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20241118233622-e639e219e697 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241118233622-e639e219e697 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect

@@ -1,27 +1,31 @@
 package config
 
-import "github.com/ShatteredRealms/go-common-service/pkg/config"
+import (
+	"context"
+
+	cconfig "github.com/ShatteredRealms/go-common-service/pkg/config"
+)
 
 var (
 	Version = "v1.0.0"
 )
 
 type InventoryConfig struct {
-	config.BaseConfig `yaml:",inline" mapstructure:",squash"`
-	Postgres          config.DBPoolConfig `yaml:"postgres"`
+	cconfig.BaseConfig `yaml:",inline" inventorystructure:",squash"`
+	Postgres           cconfig.DBPoolConfig `yaml:"postgres"`
 }
 
-func NewInventoryConfig() *InventoryConfig {
-	return &InventoryConfig{
-		BaseConfig: config.BaseConfig{
-			Server: config.ServerAddress{
+func NewInventoryConfig(ctx context.Context) (*InventoryConfig, error) {
+	config := &InventoryConfig{
+		BaseConfig: cconfig.BaseConfig{
+			Server: cconfig.ServerAddress{
 				Host: "localhost",
-				Port: "8084",
+				Port: "8085",
 			},
-			Keycloak: config.KeycloakConfig{
+			Keycloak: cconfig.KeycloakConfig{
 				BaseURL:      "localhost:8080",
 				Realm:        "default",
-				Id:           "5114c8a3-5035-4f44-ba55-5d0048ea40ef",
+				Id:           "7b575e9b-c687-4cdc-b210-67c59b5f380f",
 				ClientId:     "sro-inventory-service",
 				ClientSecret: "**********",
 			},
@@ -29,13 +33,16 @@ func NewInventoryConfig() *InventoryConfig {
 			LogLevel:            0,
 			OpenTelemtryAddress: "localhost:4317",
 		},
-		Postgres: config.DBPoolConfig{
-			Master: config.DBConfig{
-				ServerAddress: config.ServerAddress{},
+		Postgres: cconfig.DBPoolConfig{
+			Master: cconfig.DBConfig{
+				ServerAddress: cconfig.ServerAddress{},
 				Name:          "inventory-service",
 				Username:      "postgres",
 				Password:      "password",
 			},
 		},
 	}
+
+	err := cconfig.BindConfigEnvs(ctx, "sro-inventory", config)
+	return config, err
 }
